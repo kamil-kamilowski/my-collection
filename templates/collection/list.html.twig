@@ -1,0 +1,18 @@
+{% extends "common/base.html.twig" %}
+
+{% block title %}List{% endblock %}
+
+{% block content %}
+    <h1>Collection list</h1>
+    <h4>Page {{ page }}</h4>
+
+    {% for i in 0..10 %}
+        <ul>
+            <li>
+                <a href="{{ path('item_view', {'id': i}) }}">
+                    Go to item {{ i }}
+                </a>
+            </li>
+        </ul>
+    {% endfor %}
+{% endblock %}
