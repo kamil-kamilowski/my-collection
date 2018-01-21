@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Item;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -22,7 +23,11 @@ class CollectionController extends Controller
      */
     public function collectionList($page = 1)
     {
-        return $this->render('collection/list.html.twig', array('page' => $page));
+        $items = $this->getDoctrine()->getRepository(Item::class)->findAll();
+        return $this->render('collection/list.html.twig', array(
+            'page' => $page,
+            'items' => $items
+        ));
     }
 
     /**

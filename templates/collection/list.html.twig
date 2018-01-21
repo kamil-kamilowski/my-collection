@@ -6,13 +6,31 @@
     <h1>Collection list</h1>
     <h4>Page {{ page }}</h4>
 
-    {% for i in 0..10 %}
-        <ul>
-            <li>
-                <a href="{{ path('item_view', {'id': i}) }}">
-                    Go to item {{ i }}
-                </a>
-            </li>
-        </ul>
-    {% endfor %}
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Item</th>
+            <th>Category</th>
+            <th>Genre</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for item in items %}
+        <tr>
+            <td>
+                <a href="{{ path('item_view', {'id': item.id}) }}">{{ item.id }}</a>
+            </td>
+            <td>
+                {{ item.name }}
+            </td>
+            <td>{{ item.category.name }}</td>
+            <td>{{ item.genre.name }}</td>
+            <td>{{ item.description }}</td>
+        </tr>
+        </tbody>
+        {% endfor %}
+    </table>
 {% endblock %}
