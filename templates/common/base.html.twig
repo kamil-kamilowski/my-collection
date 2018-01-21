@@ -4,30 +4,16 @@
     {% block head %}
         <title>{% block title %}{% endblock %} - My Collection</title>
     {% endblock %}
-    <style>
-        #content, #footer {
-            height: 500px;
-            width: 800px;
-            margin: auto;
-        }
 
-        #content {
-            height: calc(100vh - 80px);
-        }
-
-        #footer {
-            height: 80px;
-            text-align: center;
-        }
-
-        h1 {
-            width: 100%;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
 </head>
 <body>
 <div id="content">{% block content %}{% endblock %}</div>
+
+{% block scripts %}
+    <script src="{{ asset('build/js/app.js') }}"></script>
+{% endblock %}
+
 <div id="footer">
     {% block footer %}
         &copy; Copyright 2018 by Kamil Roczniok.
