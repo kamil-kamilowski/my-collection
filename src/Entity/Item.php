@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ItemRepository")
@@ -19,6 +20,8 @@ class Item
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $name;
@@ -29,18 +32,24 @@ class Item
     private $description;
 
     /**
+     * @Assert\NotNull()
+     *
      * @ManyToOne(targetEntity="User")
      * @JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
 
     /**
+     * @Assert\NotNull()
+     *
      * @ManyToOne(targetEntity="ItemCategory")
      * @JoinColumn(name="item_category_id", referencedColumnName="id", nullable=false)
      */
     private $category;
 
     /**
+     * @Assert\NotNull()
+     *
      * @ManyToOne(targetEntity="ItemGenre")
      * @JoinColumn(name="item_genre_id", referencedColumnName="id", nullable=false)
      */

@@ -6,6 +6,12 @@
     <h1>Collection list</h1>
     <h4>Page {{ page }}</h4>
 
+    {% if item_successfully_added %}
+        <div>New item successfully added</div>
+    {% endif %}
+
+    <a href="{{ path('item_form') }}">Add new item to My Collection</a>
+
     <table>
         <thead>
         <tr>
@@ -20,12 +26,8 @@
         <tbody>
         {% for item in items %}
         <tr>
-            <td>
-                <a href="{{ path('item_view', {'id': item.id}) }}">{{ item.id }}</a>
-            </td>
-            <td>
-                {{ item.name }}
-            </td>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
             <td>{{ item.category.name }}</td>
             <td>{{ item.genre.name }}</td>
             <td>{{ item.description }}</td>
