@@ -12,10 +12,13 @@ use App\Entity\Item;
 
 use App\Entity\User;
 use App\Form\ItemType;
+use App\Repository\ItemRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
+
+define("PAGE_SIZE", 5);
 
 class CollectionController extends Controller
 {
@@ -40,14 +43,25 @@ class CollectionController extends Controller
      */
     public function collectionList($page = 1)
     {
+        // handle session
         $itemAdded = $this->session->get('item_successfully_added');
         if ($itemAdded) {
             $this->session->remove('item_successfully_added');
         }
 
-        $items = $this->getDoctrine()->getRepository(Item::class)->findAll();
+        /** @var ItemRepository $itemRepository */
+        $itemRepository = $this->getDoctrine()->getRepository(Item::class);
+
+        // get items for current page
+        $items = $itemRepository->getPage($page - 1, PAGE_SIZE);
+
+        // calculate total pages
+        $totalPages = ceil(count($itemRepository->findAll()) / PAGE_SIZE);
+
+        // render twig
         return $this->render('collection/list.html.twig', array(
             'page' => $page,
+            'totalPages' => $totalPages,
             'items' => $items,
             'itemSuccessfullyAdded' => $itemAdded
         ));
