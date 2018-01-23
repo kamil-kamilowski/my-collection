@@ -9,14 +9,9 @@
 namespace App\Controller;
 
 use App\Entity\Item;
-use App\Entity\ItemCategory;
-use App\Entity\ItemGenre;
+
 use App\Entity\User;
 use App\Form\ItemType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
