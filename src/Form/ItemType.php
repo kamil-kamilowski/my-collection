@@ -51,6 +51,7 @@ class ItemType extends AbstractType
 
             $form->add('genre', ChoiceType::class, [
                 'choices' => $genres,
+                'placeholder' => 'Choose an option',
                 'choice_label' => function ($genre) {
                     /** @var ItemGenre $genre */
                     return $genre->getName();

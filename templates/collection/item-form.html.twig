@@ -3,16 +3,43 @@
 {% block title %}Add new item{% endblock %}
 
 {% block content %}
+
     <h1>Item form</h1>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+    <div class="form-container">
+        {{ form_start(form) }}
 
-    <a href="{{ path('collection_list') }}">Return to list</a>
+        <div class="form-group">
+            {{ form_label(form.name, 'Item name') }}
+            {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.description, 'Description') }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.category, 'Category') }}
+            {{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.genre, 'Genre') }}
+            {{ form_widget(form.genre, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-success'}}) }}
+            <a href="{{ path('collection_list') }}" class="btn btn-danger">Return to list</a>
+        </div>
+
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
 
-{% block scripts %}
-    <script src="{{ asset('build/js/item-form.js') }}"></script>
-{% endblock %}
+        {% block scripts %}
+            <script src="{{ asset('build/js/item-form.js') }}"></script>
+        {% endblock %}
 

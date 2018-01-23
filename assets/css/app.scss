@@ -10,6 +10,10 @@ $brand-primary: darken(#428bca, 20%);
   margin: auto;
   cursor: default;
   padding: 1rem;
+}
+
+#content {
+  height: calc(100vh - 80px);
 
   & > h1 {
     width: 100%;
@@ -24,10 +28,11 @@ $brand-primary: darken(#428bca, 20%);
     margin: 2rem;
     text-align: center;
   }
-}
 
-#content {
-  height: calc(100vh - 80px);
+  & > .form-container {
+    width: 400px;
+    margin: auto;
+  }
 }
 
 #footer {
