@@ -15,25 +15,41 @@ use App\Form\ItemType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class CollectionController extends Controller
 {
+    /** @var Session $session */
+    private $session;
+
+    /**
+     * CollectionController constructor.
+     */
+    public function __construct()
+    {
+        $this->session = new Session();
+        $this->session->start();
+    }
+
     /**
      * @Route("/"), name="collection_list")
      * @Route("/list/{page}", name="collection_list")
-     * @Route("/list/{page}/{success}", name="collection_list")
      *
      * @param int $page
-     * @param bool $success
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function collectionList($page = 1, $success = false)
+    public function collectionList($page = 1)
     {
+        $itemAdded = $this->session->get('item_successfully_added');
+        if ($itemAdded) {
+            $this->session->remove('item_successfully_added');
+        }
+
         $items = $this->getDoctrine()->getRepository(Item::class)->findAll();
         return $this->render('collection/list.html.twig', array(
             'page' => $page,
             'items' => $items,
-            'item_successfully_added' => $success
+            'itemSuccessfullyAdded' => $itemAdded
         ));
     }
 
@@ -48,7 +64,7 @@ class CollectionController extends Controller
         // create form
         $item = new Item();
         $item->setUser($this->getDoctrine()->getRepository(User::class)->find(1));
-        $form =  $this->createForm(ItemType::class, $item);
+        $form = $this->createForm(ItemType::class, $item);
 
         // handle submitted item form
         $form->handleRequest($request);
@@ -60,14 +76,11 @@ class CollectionController extends Controller
             $em->persist($item);
             $em->flush();
 
-            return $this->redirectToRoute('collection_list', array('page' => 1, 'success' => 'success'));
+            $this->session->set('item_successfully_added', true);
+            return $this->redirectToRoute('collection_list');
         }
 
         // render form
-        return $this->render('collection/item-form.html.twig', array(
-                'form' => $form->createView(),
-                'item_added' => $request->get('success') !== null
-            )
-        );
+        return $this->render('collection/item-form.html.twig', array('form' => $form->createView()));
     }
 }
