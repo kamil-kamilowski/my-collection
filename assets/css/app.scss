@@ -1,7 +1,29 @@
+// customize some Bootstrap variables
+$brand-primary: darken(#428bca, 20%);
+
+// the ~ allows you to reference things in node_modules
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+
 #content, #footer {
   height: 500px;
   width: 800px;
   margin: auto;
+  cursor: default;
+  padding: 1rem;
+
+  & > h1 {
+    width: 100%;
+    text-align: center;
+  }
+
+  & > .wide {
+    width: 100%;
+  }
+
+  & > .button-container {
+    margin: 2rem;
+    text-align: center;
+  }
 }
 
 #content {
@@ -10,10 +32,5 @@
 
 #footer {
   height: 80px;
-  text-align: center;
-}
-
-h1 {
-  width: 100%;
   text-align: center;
 }

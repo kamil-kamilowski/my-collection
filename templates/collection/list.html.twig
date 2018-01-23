@@ -4,15 +4,16 @@
 
 {% block content %}
     <h1>Collection list</h1>
-    <h4>Page {{ page }}</h4>
 
     {% if item_successfully_added %}
-        <div>New item successfully added</div>
+        <div class="alert alert-success" role="alert">New item successfully added</div>
     {% endif %}
 
-    <a href="{{ path('item_form') }}">Add new item to My Collection</a>
+    <div class="wide button-container">
+        <a href="{{ path('item_form') }}" class="btn btn-primary">Add new item to My Collection</a>
+    </div>
 
-    <table>
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th>Id</th>
@@ -35,4 +36,14 @@
         </tbody>
         {% endfor %}
     </table>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link active" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
 {% endblock %}
