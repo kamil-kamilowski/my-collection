@@ -26,3 +26,8 @@ open http://localhost:8000 in browser
   
 2. use migration to saving every database structure or init-data changes
 php bin/console doctrine:migrations:diff   
+
+-------------login data for test---------------------
+
+1. u: admin p:admin or 
+2. u: kamil p: Password1234
