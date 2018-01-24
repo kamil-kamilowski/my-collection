@@ -36,14 +36,17 @@ class CollectionController extends Controller
             $this->get('session')->remove('item_successfully_added');
         }
 
+        /** @var User $user */
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
         /** @var ItemRepository $itemRepository */
         $itemRepository = $this->getDoctrine()->getRepository(Item::class);
 
         // get items for current page
-        $items = $itemRepository->getPage($page - 1, PAGE_SIZE);
+        $items = $itemRepository->getPage($page - 1, PAGE_SIZE, $user);
 
         // calculate total pages
-        $totalPages = ceil(count($itemRepository->findAll()) / PAGE_SIZE);
+        $totalPages = ceil(count($itemRepository->findBy(array('user' => $user))) / PAGE_SIZE);
 
         // render twig
         return $this->render('collection/list.html.twig', array(
@@ -64,7 +67,7 @@ class CollectionController extends Controller
     {
         // create form
         $item = new Item();
-        $item->setUser($this->getDoctrine()->getRepository(User::class)->find(1));
+        $item->setUser($this->get('security.token_storage')->getToken()->getUser());
         $form = $this->createForm(ItemType::class, $item);
 
         // handle submitted item form
