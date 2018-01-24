@@ -16,24 +16,11 @@ use App\Repository\ItemRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 define("PAGE_SIZE", 5);
 
 class CollectionController extends Controller
 {
-    /** @var Session $session */
-    private $session;
-
-    /**
-     * CollectionController constructor.
-     */
-    public function __construct()
-    {
-        $this->session = new Session();
-        $this->session->start();
-    }
-
     /**
      * @Route("/"), name="collection_list")
      * @Route("/list/{page}", name="collection_list")
@@ -44,9 +31,9 @@ class CollectionController extends Controller
     public function collectionList($page = 1)
     {
         // handle session
-        $itemAdded = $this->session->get('item_successfully_added');
+        $itemAdded = $this->get('session')->get('item_successfully_added');
         if ($itemAdded) {
-            $this->session->remove('item_successfully_added');
+            $this->get('session')->remove('item_successfully_added');
         }
 
         /** @var ItemRepository $itemRepository */
@@ -90,7 +77,7 @@ class CollectionController extends Controller
             $em->persist($item);
             $em->flush();
 
-            $this->session->set('item_successfully_added', true);
+            $this->get('session')->set('item_successfully_added', true);
             return $this->redirectToRoute('collection_list');
         }
 

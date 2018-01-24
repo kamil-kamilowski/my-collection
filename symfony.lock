@@ -200,6 +200,9 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.6.0"
     },
+    "symfony/polyfill-util": {
+        "version": "v1.6.0"
+    },
     "symfony/process": {
         "version": "v3.4.3"
     },
@@ -216,6 +219,18 @@
             "branch": "master",
             "version": "3.3",
             "ref": "a249484db698d1a847a30291c8f732414ac47e25"
+        }
+    },
+    "symfony/security": {
+        "version": "v3.4.3"
+    },
+    "symfony/security-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "34eb245ce4194e7ae713558084180e2c532e7afd"
         }
     },
     "symfony/stopwatch": {
